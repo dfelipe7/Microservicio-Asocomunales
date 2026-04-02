@@ -1,0 +1,25 @@
+import { Module } from '@nestjs/common';
+import { AppController } from './app.controller';
+import { AppService } from './app.service';
+import { AsocomunalModule } from './asocomunal/asocomunal.module';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { Municipio } from './municipio/entities/municipio.entity';
+import { MunicipioModule } from './municipio/municipio.module';
+import { SeedModule } from './seed/seed.module';
+
+@Module({
+
+  imports: [TypeOrmModule.forRoot({
+    type: 'postgres',
+    host: 'localhost',
+    port: 5432,
+    username: 'postgres',
+    password: 'root',
+    database: 'DBAsocomunales',
+    autoLoadEntities: true,
+    synchronize: true,
+  }), AsocomunalModule, MunicipioModule, SeedModule],
+  controllers: [AppController],
+  providers: [AppService],
+})
+export class AppModule {}
