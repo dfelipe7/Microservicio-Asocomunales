@@ -3,9 +3,9 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AsocomunalModule } from './asocomunal/asocomunal.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Municipio } from './municipio/entities/municipio.entity';
 import { MunicipioModule } from './municipio/municipio.module';
 import { SeedModule } from './seed/seed.module';
+import { JacModule } from './jac/jac.module';
 
 @Module({
 
@@ -18,7 +18,7 @@ import { SeedModule } from './seed/seed.module';
     database: 'DBAsocomunales',
     autoLoadEntities: true,
     synchronize: true,
-  }), AsocomunalModule, MunicipioModule, SeedModule],
+  }), AsocomunalModule, MunicipioModule, SeedModule, JacModule],
   controllers: [AppController],
   providers: [AppService],
 })

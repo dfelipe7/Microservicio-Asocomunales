@@ -55,4 +55,10 @@ export class AsocomunalController {
   async activate(@Param('id') id: string): Promise<AsocomunalResponseDto> {
     return this.asocomunalService.activate(+id);
   }
+
+
+  @Get(':id/jacs')
+  async findJacs(@Param('id') id: number): Promise<AsocomunalResponseDto> {
+  return this.asocomunalService.getAsocomunalWithJacs(+id);
+}
 }

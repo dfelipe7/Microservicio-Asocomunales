@@ -8,4 +8,5 @@ export interface AsocomunalRepository {
   update(id: number, asocomunal: Partial<Asocomunal>): Promise<void>;
   delete(id: number): Promise<void>;
   activate(id: number): Promise<void>;
+  findOneWithJacs(id: number): Promise<Asocomunal | null>;
 }

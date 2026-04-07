@@ -1,9 +1,7 @@
-export class AsocomunalEventDto {
+export class JacEventDto {
   id: number;
   nombre: string;
-  municipioId: number;
-  municipioNombre: string;
   estado: boolean;
+  asocomunalId: number;
   action: 'created' | 'updated' | 'deleted';
-
 }

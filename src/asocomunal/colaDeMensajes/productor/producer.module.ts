@@ -21,4 +21,6 @@ import { ProducerService } from './producer.service';
   providers: [ProducerService],
   exports: [ProducerService],
 })
+
+
 export class ProducerModule {}

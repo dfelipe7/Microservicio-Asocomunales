@@ -32,10 +32,10 @@ async create(dto: CreateAsocomunalDto): Promise<AsocomunalResponseDto> {
   }
 
   // Verificar si ya existe un asocomunal con ese nombre
-  const exists = await this.asocomunalRepository.findByNombre(dto.nombre);
-  if (exists) {
-    return plainToInstance(AsocomunalResponseDto, exists);
-  }
+    const exists = await this.asocomunalRepository.findByNombre(dto.nombre);
+    if (exists) {
+      throw new BadRequestException('Ya existe una asocomunal con ese nombre');
+    }
 
   // 2. Buscamos el municipio usando el servicio (obtenemos un DTO)
   const municipioDto = await this.municipioService.findOne(dto.municipioId);
@@ -48,31 +48,88 @@ async create(dto: CreateAsocomunalDto): Promise<AsocomunalResponseDto> {
   const entity = new Asocomunal();
   entity.nombre = dto.nombre;
   entity.estado = dto.estado ?? true;
+  entity.presidente = dto.presidente|| null;
+  entity.telefono = dto.telefono|| null;
+  entity.correo = dto.correo|| null;
+
 
   // 4. Mapeo seguro: Convertimos el DTO a la forma que espera la Entidad
   // Usamos 'as Municipio' para que TS acepte que solo pasamos el ID
-  entity.municipio = { id: municipioDto.id } as Municipio;
-
+  entity.municipio = { id: dto.municipioId } as Municipio;
   // Guardar en la base de datos
   const saved = await this.asocomunalRepository.create(entity);
 
-  // Verificamos que se haya guardado la relación
-  if (!saved.municipio) {
-    throw new Error('El asocomunal guardado no tiene municipio asignado');
-  }
-
+ 
   // Enviar evento
+
   await this.producerService.sendAsocomunalEvent({
     id: saved.id,
     nombre: saved.nombre,
     estado: saved.estado,
     municipioId: saved.municipio.id,
+    municipioNombre: municipioDto.nombre,
     action: 'created',
   });
 
-  // 6️⃣ Convertir a DTO de respuesta
-  return plainToInstance(AsocomunalResponseDto, saved);
+  const response = {
+  ...saved,
+  municipio: {
+    id: municipioDto.id,
+    nombre: municipioDto.nombre,
+  },
+};
+
+  //Convertir a DTO de respuesta
+  return plainToInstance(AsocomunalResponseDto, response);
 }
+
+
+
+
+  async update(id: number, dto: UpdateAsocomunalDto): Promise<AsocomunalResponseDto> {
+    // Verificar que exista
+    const entity = await this.asocomunalRepository.findById(id);
+    if (!entity) throw new NotFoundException(`Asocomunal con id ${id} no encontrada`);
+
+
+  // 🔥 validar duplicado
+  if (dto.nombre) {
+    const exists = await this.asocomunalRepository.findByNombre(dto.nombre);
+    if (exists && exists.id !== id) {
+      throw new BadRequestException('Ya existe una asocomunal con ese nombre');
+    }
+  }
+
+  // 🔥 validar municipio si viene
+  let municipioDto;
+  if (dto.municipioId) {
+    municipioDto = await this.municipioService.findOne(dto.municipioId);
+    if (!municipioDto) {
+      throw new NotFoundException('Municipio no existe');
+    }
+  }
+
+    // Actualizar en la base de datos
+    await this.asocomunalRepository.update(id, dto);
+
+    // Volver a traer la entidad actualizada desde la BD
+    const updatedEntity = await this.asocomunalRepository.findById(id);
+    if (!updatedEntity) throw new NotFoundException(`Error al actualizar Asocomunal con id ${id}`);
+
+      // Enviar evento
+
+  await this.producerService.sendAsocomunalEvent({
+    id: updatedEntity.id,
+    nombre: updatedEntity.nombre,
+    estado: updatedEntity.estado,
+    municipioId:updatedEntity.municipio!.id,     
+    municipioNombre:updatedEntity.municipio!.nombre,
+    action: 'updated',
+  });
+
+    // Retornar el DTO con los datos exactos que quedaron en la BD
+    return plainToInstance(AsocomunalResponseDto, updatedEntity);
+  }
   
   
   async findAll(): Promise<AsocomunalResponseDto[]> {
@@ -89,21 +146,6 @@ async create(dto: CreateAsocomunalDto): Promise<AsocomunalResponseDto> {
     return plainToInstance(AsocomunalResponseDto, entity);
   }
 
-  async update(id: number, dto: UpdateAsocomunalDto): Promise<AsocomunalResponseDto> {
-    // Verificar que exista
-    const entity = await this.asocomunalRepository.findById(id);
-    if (!entity) throw new NotFoundException(`Asocomunal con id ${id} no encontrada`);
-
-    // Actualizar en la base de datos
-    await this.asocomunalRepository.update(id, dto);
-
-    // Volver a traer la entidad actualizada desde la BD
-    const updatedEntity = await this.asocomunalRepository.findById(id);
-    if (!updatedEntity) throw new NotFoundException(`Error al actualizar Asocomunal con id ${id}`);
-
-    // Retornar el DTO con los datos exactos que quedaron en la BD
-    return plainToInstance(AsocomunalResponseDto, updatedEntity);
-  }
 
   async remove(id: number): Promise<AsocomunalResponseDto> {
     const entity = await this.asocomunalRepository.findById(id);
@@ -139,5 +181,15 @@ async create(dto: CreateAsocomunalDto): Promise<AsocomunalResponseDto> {
     return this.asocomunalRepository.delete(id);
   }
    */
+
+  async getAsocomunalWithJacs(id: number): Promise<AsocomunalResponseDto> {
+  const asocomunal = await this.asocomunalRepository.findOneWithJacs(id);
+
+  if (!asocomunal) {
+    throw new NotFoundException('Asocomunal no existe');
+  }
+
+  return plainToInstance(AsocomunalResponseDto, asocomunal);
+}
  
 }

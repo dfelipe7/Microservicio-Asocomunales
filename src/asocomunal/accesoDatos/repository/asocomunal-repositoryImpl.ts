@@ -17,13 +17,16 @@ export class AsocomunalRepositoryImpl implements AsocomunalRepository {
 
   async findAll(): Promise<Asocomunal[]> {
     return this.repo.find({
-    relations: ['municipio'], // 👈 Esto hace el JOIN con la tabla de municipios
+      order: { id: 'ASC' },
+    relations: ['municipio'], //Join con municipio para traer el nombre del municipio asociado a cada asocomunal
   });
   }
-
-  async findById(id: number): Promise<Asocomunal | null> {
-    return this.repo.findOneBy({ id });
-  }
+async findById(id: number): Promise<Asocomunal | null> {
+  return this.repo.findOne({
+    where: { id },
+    relations: ['municipio'],
+  });
+}
 
     async findByNombre(nombre: string): Promise<Asocomunal | null> {
     return this.repo.findOne({ where: { nombre } });
@@ -44,4 +47,12 @@ export class AsocomunalRepositoryImpl implements AsocomunalRepository {
   async activate(id: number): Promise<void> {
     await this.repo.update(id, { estado: true });
   }
+
+  async findOneWithJacs(id: number): Promise<Asocomunal | null> {
+    return this.repo.findOne({
+      where: { id },
+      relations: ['jacs', 'municipio'], // Asegúrate de incluir el municipio si quieres el nombre del municipio también
+    });
+  }
 }
+

@@ -16,7 +16,7 @@ export class SeedService implements OnApplicationBootstrap {
   }
 
   async run() {
-    console.log('🌱 Iniciando seed...');
+    console.log('Iniciando seed...');
 
     await this.municipioSeed.seed();
     await this.asocomunalSeed.seed();
