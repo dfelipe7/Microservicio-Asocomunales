@@ -9,8 +9,8 @@ export class ProducerService {
     @Inject('ASOCOMUNAL_PRODUCER') private readonly client: ClientProxy,
   ) {}
 
-  async sendAsocomunalEvent(event: AsocomunalEventDto) {
+  sendAsocomunalEvent(event: AsocomunalEventDto) {
     // send envía un mensaje a la cola, con patrón igual a 'asocomunal.event'
-    await this.client.emit('asocomunal.event', event);
+    this.client.emit('asocomunal.event', event);
   }
 }

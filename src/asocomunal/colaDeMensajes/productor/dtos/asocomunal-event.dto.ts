@@ -5,5 +5,4 @@ export class AsocomunalEventDto {
   municipioNombre: string;
   estado: boolean;
   action: 'created' | 'updated' | 'deleted';
-
 }

@@ -9,7 +9,7 @@ export class JacConsumer {
 
   @EventPattern('jac.events')
   async handleJacEvent(data: JacEventDto) {
-      console.log('Mensaje recibido de MS2:', data);
+    console.log('Mensaje recibido de MS2:', data);
 
     await this.jacService.handleEvent(data);
   }

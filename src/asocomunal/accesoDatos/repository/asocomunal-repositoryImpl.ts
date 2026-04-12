@@ -9,7 +9,7 @@ export class AsocomunalRepositoryImpl implements AsocomunalRepository {
   constructor(
     @InjectRepository(Asocomunal)
     private readonly repo: Repository<Asocomunal>,
-  ) {}
+  ) { }
 
   async create(asocomunal: Asocomunal): Promise<Asocomunal> {
     return this.repo.save(asocomunal);
@@ -18,18 +18,25 @@ export class AsocomunalRepositoryImpl implements AsocomunalRepository {
   async findAll(): Promise<Asocomunal[]> {
     return this.repo.find({
       order: { id: 'ASC' },
-    relations: ['municipio'], //Join con municipio para traer el nombre del municipio asociado a cada asocomunal
-  });
+      relations: ['municipio'], //Join con municipio para traer el nombre del municipio asociado a cada asocomunal
+    });
   }
-async findById(id: number): Promise<Asocomunal | null> {
-  return this.repo.findOne({
-    where: { id },
-    relations: ['municipio'],
-  });
-}
+  async findById(id: number): Promise<Asocomunal | null> {
+    return this.repo.findOne({
+      where: { id },
+      relations: ['municipio'],
+    });
+  }
 
-    async findByNombre(nombre: string): Promise<Asocomunal | null> {
+  async findByNombre(nombre: string): Promise<Asocomunal | null> {
     return this.repo.findOne({ where: { nombre } });
+  }
+
+  async findByNombreAndMunicipio(
+    nombre: string,
+    municipioId: number,
+  ): Promise<Asocomunal | null> {
+    return this.repo.findOne({ where: { nombre, municipioId } });
   }
 
   async update(id: number, asocomunal: Partial<Asocomunal>): Promise<void> {
@@ -55,4 +62,3 @@ async findById(id: number): Promise<Asocomunal | null> {
     });
   }
 }
-

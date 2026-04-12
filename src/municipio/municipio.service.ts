@@ -15,12 +15,13 @@ export class MunicipioService {
     private readonly municipioRepository: Repository<Municipio>,
   ) {}
 
-
-  async create(createMunicipioDto: CreateMunicipioDto): Promise<MunicipioResponseDto> {
+  async create(
+    createMunicipioDto: CreateMunicipioDto,
+  ): Promise<MunicipioResponseDto> {
     const municipio = this.municipioRepository.create({
       nombre: createMunicipioDto.nombre,
     });
-    
+
     const savedMunicipio = await this.municipioRepository.save(municipio);
 
     return {
@@ -29,42 +30,46 @@ export class MunicipioService {
     };
   }
 
-async findAll(): Promise<MunicipioResponseDto[]> {
-  const municipios = await this.municipioRepository.find({
-    where: { isActive: true }, // solo activos
-    order: { id: 'ASC' },       // orden por id ascendente
-  });
+  async findAll(): Promise<MunicipioResponseDto[]> {
+    const municipios = await this.municipioRepository.find({
+      where: { isActive: true }, // solo activos
+      order: { id: 'ASC' }, // orden por id ascendente
+    });
 
-  return municipios.map(m => ({
-    id: m.id,
-    nombre: m.nombre,
-  }));
-}
+    return municipios.map((m) => ({
+      id: m.id,
+      nombre: m.nombre,
+    }));
+  }
 
-async activate(id: number): Promise<MunicipioResponseDto> {
-  const municipio = await this.municipioRepository.findOneBy({ id });
-  if (!municipio) throw new NotFoundException(`Municipio con id ${id} no encontrado`);
+  async activate(id: number): Promise<MunicipioResponseDto> {
+    const municipio = await this.municipioRepository.findOneBy({ id });
+    if (!municipio)
+      throw new NotFoundException(`Municipio con id ${id} no encontrado`);
 
-  municipio.isActive = true;
-  const updated = await this.municipioRepository.save(municipio);
+    municipio.isActive = true;
+    const updated = await this.municipioRepository.save(municipio);
 
-  return {
-    id: updated.id,
-    nombre: updated.nombre,
-  };
-}
+    return {
+      id: updated.id,
+      nombre: updated.nombre,
+    };
+  }
 
-async findOne(id: number): Promise<MunicipioResponseDto | null> {
-  const municipio = await this.municipioRepository.findOneBy({ id });
-  if (!municipio) return null;
+  async findOne(id: number): Promise<MunicipioResponseDto | null> {
+    const municipio = await this.municipioRepository.findOneBy({ id });
+    if (!municipio) return null;
 
-  return {
-    id: municipio.id,
-    nombre: municipio.nombre,
-  };
-}
+    return {
+      id: municipio.id,
+      nombre: municipio.nombre,
+    };
+  }
 
-  async update(id: number, updateMunicipioDto: UpdateMunicipioDto): Promise<MunicipioResponseDto | null> {
+  async update(
+    id: number,
+    updateMunicipioDto: UpdateMunicipioDto,
+  ): Promise<MunicipioResponseDto | null> {
     const municipio = await this.municipioRepository.findOneBy({ id });
     if (!municipio) return null;
 
@@ -77,20 +82,20 @@ async findOne(id: number): Promise<MunicipioResponseDto | null> {
     };
   }
 
-async remove(id: number): Promise<void> {
-  const municipio = await this.municipioRepository.findOneBy({ id });
-  if (!municipio) {
-    throw new NotFoundException(`Municipio con id ${id} no encontrado`);
+  async remove(id: number): Promise<void> {
+    const municipio = await this.municipioRepository.findOneBy({ id });
+    if (!municipio) {
+      throw new NotFoundException(`Municipio con id ${id} no encontrado`);
+    }
+
+    // Desactivar en lugar de borrar
+    municipio.isActive = false;
+    await this.municipioRepository.save(municipio);
   }
 
-  // Desactivar en lugar de borrar
-  municipio.isActive = false;
-  await this.municipioRepository.save(municipio);
-}
-
-async findByNombre(nombre: string): Promise<Municipio | null> {
-  return this.municipioRepository.findOne({
-    where: { nombre },
-  });
-}
+  async findByNombre(nombre: string): Promise<Municipio | null> {
+    return this.municipioRepository.findOne({
+      where: { nombre },
+    });
+  }
 }

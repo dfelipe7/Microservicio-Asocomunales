@@ -1,5 +1,4 @@
-export class UpdateMunicipioDto{
+import { PartialType } from '@nestjs/swagger';
+import { CreateMunicipioDto } from './create-municipio.dto';
 
-    nombre: string;
-
-}
+export class UpdateMunicipioDto extends PartialType(CreateMunicipioDto) {}

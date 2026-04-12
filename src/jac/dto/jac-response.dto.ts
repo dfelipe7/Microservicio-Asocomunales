@@ -1,18 +1,27 @@
-import { Exclude, Expose } from "class-transformer";
+import { Exclude, Expose } from 'class-transformer';
+import { ApiProperty } from '@nestjs/swagger';
 
 export class JacResponseDto {
+  @Expose()
+  @ApiProperty({
+    example: 'JAC Barrio Centro',
+    description: 'Nombre de la Junta de Acción Comunal',
+  })
+  nombre!: string;
 
-    @Expose() // Esto asegura que el campo se incluya en la transformación
-    nombre: string;
-    @Expose()
-    estado: boolean
-    @Exclude() // Esto ocultará el ID en el JSON
-    id: number;
-    @Exclude() // Esto ocultará el ID de la asocomunal en el JSON
-    asocomunalId: number;   
+  @Expose()
+  @ApiProperty({
+    example: true,
+    description: 'Estado de la JAC',
+  })
+  estado!: boolean;
 
-    @Exclude() // Esto ocultará el ID externo en el JSON
-    externalId: number;
+  @Exclude()
+  id!: number;
 
+  @Exclude()
+  asocomunalId!: number;
 
+  @Exclude()
+  externalId!: number;
 }

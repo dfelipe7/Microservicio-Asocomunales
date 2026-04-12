@@ -1,7 +1,5 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller } from '@nestjs/common';
 import { JacService } from './jac.service';
-import { CreateJacDto } from './dto/create-jac.dto';
-import { UpdateJacDto } from './dto/update-jac.dto';
 
 @Controller('jac')
 export class JacController {

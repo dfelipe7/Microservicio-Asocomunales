@@ -1,4 +1,8 @@
-import { ClientProxyFactory, Transport, ClientProxy } from '@nestjs/microservices';
+import {
+  ClientProxyFactory,
+  Transport,
+  ClientProxy,
+} from '@nestjs/microservices';
 
 async function bootstrap() {
   // Configurar cliente para RabbitMQ
@@ -49,12 +53,26 @@ async function bootstrap() {
       asocomunalId: 3,
       action: 'updated',
     },
-     {
+    {
       id: 10,
       nombre: 'JAC Sur',
       estado: true,
       asocomunalId: 6,
-      action: 'updated',
+      action: 'created',
+    },
+    {
+      id: 11,
+      nombre: 'JAC luna',
+      estado: true,
+      asocomunalId: 1,
+      action: 'created',
+    },
+    {
+      id: 12,
+      nombre: 'JAC Sur',
+      estado: true,
+      asocomunalId: 1,
+      action: 'created',
     },
   ];
 

@@ -1,11 +1,21 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, ParseIntPipe, NotFoundException } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  ParseIntPipe,
+  NotFoundException,
+} from '@nestjs/common';
 import { MunicipioService } from './municipio.service';
 import { CreateMunicipioDto } from './dto/request/create-municipio.dto';
 import { UpdateMunicipioDto } from './dto/request/update-municipio.dto';
 import { MunicipioResponseDto } from './dto/response/municipio-response.dto';
 import { ApiTags } from '@nestjs/swagger';
 
-ApiTags('municipios')
+ApiTags('municipios');
 @Controller('municipio')
 export class MunicipioController {
   constructor(private readonly municipioService: MunicipioService) {}
@@ -35,15 +45,15 @@ export class MunicipioController {
   @Patch(':id')
   async update(
     @Param('id', ParseIntPipe) id: number,
-    @Body() updateMunicipioDto: UpdateMunicipioDto
+    @Body() updateMunicipioDto: UpdateMunicipioDto,
   ): Promise<MunicipioResponseDto | null> {
     return this.municipioService.update(id, updateMunicipioDto);
   }
 
   @Patch(':id/activate')
   async activate(@Param('id', ParseIntPipe) id: number) {
-  return this.municipioService.activate(id);
-}
+    return this.municipioService.activate(id);
+  }
 
   @Delete(':id')
   async remove(@Param('id', ParseIntPipe) id: number) {

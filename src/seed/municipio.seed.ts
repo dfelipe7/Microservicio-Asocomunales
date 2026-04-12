@@ -2,7 +2,7 @@ import { Injectable, OnApplicationBootstrap } from '@nestjs/common';
 import { MunicipioService } from '../municipio/municipio.service';
 
 @Injectable()
-export class MunicipioSeed  {
+export class MunicipioSeed {
   constructor(private readonly municipioService: MunicipioService) {}
 
   async seed() {
