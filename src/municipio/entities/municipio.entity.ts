@@ -19,13 +19,4 @@ export class Municipio {
   // Un Municipio puede tener muchas Asocomunales
   @OneToMany(() => Asocomunal, (asocomunal) => asocomunal.municipio)
   asocomunales!: Asocomunal[];
-
-  // Relación con Jac
-  //Un Municipio puede tener muchas JAC
-  /*
-        OneToMany significa que un municipio puede tener muchas JACs.
-        jac => jac.municipio indica que en la entidad Jac hay un campo municipio que guarda la clave foránea.
-        De nuevo, en el lado One (Municipio) no se crea la columna de clave foránea, solo sirve para navegación.
-    
-    */
 }

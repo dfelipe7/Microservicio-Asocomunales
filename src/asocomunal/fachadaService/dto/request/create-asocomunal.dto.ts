@@ -1,5 +1,12 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
+/**
+ * DTO para la creación de una asocomunal.
+ * 
+ * Este DTO define la estructura de los datos que se esperan al crear una asocomunal.
+ * Incluye información básica como el nombre, estado, municipio, presidente, teléfono y correo.
+ */
+
 export class CreateAsocomunalDto {
   @ApiProperty({
     example: 'Asocomunal Norte',

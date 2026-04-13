@@ -3,6 +3,13 @@ import { Exclude, Expose, Type } from 'class-transformer';
 import { JacResponseDto } from 'src/jac/dto/jac-response.dto';
 import { ApiProperty } from '@nestjs/swagger';
 
+/**
+ * DTO para la respuesta de una asocomunal.
+ * 
+ * Este DTO define la estructura de los datos que se devuelven al consultar una asocomunal.
+ * Incluye información básica, relación con el municipio y las JAC asociadas.
+ */
+
 export class AsocomunalResponseDto {
   @Expose()
   @ApiProperty({ example: 1 })
@@ -28,11 +35,23 @@ export class AsocomunalResponseDto {
   @ApiProperty({ example: 'asocomunal@gmail.com', required: false })
   correo?: string;
 
+  /**
+   * Relación con el municipio.
+   * 
+   * @Type indica que se debe transformar a `MunicipioResponseDto`.
+   * @ApiProperty documenta la propiedad en Swagger.
+   */
   @Expose()
   @Type(() => MunicipioResponseDto)
   @ApiProperty({ type: () => MunicipioResponseDto })
   municipio!: MunicipioResponseDto;
 
+  /**
+   * Relación con las JAC.
+   * 
+   * @Type indica que se debe transformar a `JacResponseDto`.
+   * @ApiProperty documenta la propiedad en Swagger.
+   */
   @Expose()
   @Type(() => JacResponseDto)
   @ApiProperty({ type: () => [JacResponseDto] })

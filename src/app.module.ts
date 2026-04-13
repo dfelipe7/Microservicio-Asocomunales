@@ -7,7 +7,13 @@ import { MunicipioModule } from './municipio/municipio.module';
 import { SeedModule } from './seed/seed.module';
 import { JacModule } from './jac/jac.module';
 
+/**
+ * Módulo principal de la aplicación.
+ * 
+ * @returns Módulo principal de la aplicación.
+ */
 @Module({
+
   imports: [
     TypeOrmModule.forRoot({
       type: 'postgres',
@@ -27,4 +33,4 @@ import { JacModule } from './jac/jac.module';
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule { }

@@ -1,3 +1,7 @@
+/*
+DTO para el evento de asocomunal
+*/
+
 export class AsocomunalEventDto {
   id: number;
   nombre: string;

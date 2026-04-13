@@ -4,12 +4,20 @@ import { Repository } from 'typeorm';
 import { Asocomunal } from '../entities/asocomunal.entity';
 import { AsocomunalRepository } from './asocomunal-repository';
 
+/**
+ * Implementación del repositorio de asocomunales.
+ * 
+ * @implements {AsocomunalRepository}
+ */
 @Injectable()
 export class AsocomunalRepositoryImpl implements AsocomunalRepository {
   constructor(
+    //Inyecta el repositorio de asocomunales
     @InjectRepository(Asocomunal)
     private readonly repo: Repository<Asocomunal>,
   ) { }
+
+
 
   async create(asocomunal: Asocomunal): Promise<Asocomunal> {
     return this.repo.save(asocomunal);

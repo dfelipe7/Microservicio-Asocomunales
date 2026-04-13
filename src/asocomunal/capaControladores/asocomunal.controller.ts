@@ -21,11 +21,22 @@ import {
   ApiBody,
 } from '@nestjs/swagger';
 
+/**
+ * Controlador para la gestión de asocomunales.
+ * 
+ * Maneja las operaciones CRUD y otras funcionalidades relacionadas con las asocomunales,
+ * interactuando con el servicio `AsocomunalService`.
+ */
 @ApiTags('Asocomunal')
 @Controller('asocomunal')
 export class AsocomunalController {
   constructor(private readonly asocomunalService: AsocomunalService) { }
 
+  /**
+   * Crea una nueva asocomunal.
+   * @param createAsocomunalDto - Datos de la nueva asocomunal.
+   * @returns La asocomunal creada.
+   */
   @Post()
   @ApiOperation({ summary: 'Crear una nueva Asocomunal' })
   @ApiBody({ type: CreateAsocomunalDto })
@@ -40,6 +51,10 @@ export class AsocomunalController {
     return this.asocomunalService.create(createAsocomunalDto);
   }
 
+  /**
+   * Obtiene todas las asocomunales.
+   * @returns Lista de asocomunales.
+   */
   @Get()
   @ApiOperation({ summary: 'Obtener todas las asocomunales' })
   @ApiResponse({
@@ -51,6 +66,11 @@ export class AsocomunalController {
     return this.asocomunalService.findAll();
   }
 
+  /**
+   * Obtiene una asocomunal por ID.
+   * @param id - ID de la asocomunal.
+   * @returns La asocomunal encontrada.
+   */
   @Get(':id')
   @ApiOperation({ summary: 'Obtener una asocomunal por ID' })
   @ApiParam({ name: 'id', description: 'ID de la asocomunal' })
@@ -65,6 +85,12 @@ export class AsocomunalController {
     return this.asocomunalService.findOne(+id);
   }
 
+  /**
+   * Actualiza una asocomunal.
+   * @param id - ID de la asocomunal.
+   * @param updateAsocomunalDto - Datos de la asocomunal a actualizar.
+   * @returns La asocomunal actualizada.
+   */
   @Patch(':id')
   @ApiOperation({ summary: 'Actualizar una asocomunal' })
   @ApiParam({ name: 'id', description: 'ID de la asocomunal' })
@@ -81,6 +107,11 @@ export class AsocomunalController {
     return this.asocomunalService.update(+id, updateAsocomunalDto);
   }
 
+  /**
+   * Elimina una asocomunal.
+   * @param id - ID de la asocomunal.
+   * @returns La asocomunal eliminada.
+   */
   @Delete(':id')
   @ApiOperation({ summary: 'Eliminar una asocomunal' })
   @ApiParam({ name: 'id', description: 'ID de la asocomunal' })
@@ -93,6 +124,11 @@ export class AsocomunalController {
     return this.asocomunalService.remove(+id);
   }
 
+  /**
+   * Activa una asocomunal.
+   * @param id - ID de la asocomunal.
+   * @returns La asocomunal activada.
+   */
   @Patch(':id/activate')
   @ApiOperation({ summary: 'Activar una asocomunal' })
   @ApiParam({ name: 'id', description: 'ID de la asocomunal' })
@@ -105,6 +141,11 @@ export class AsocomunalController {
     return this.asocomunalService.activate(+id);
   }
 
+  /**
+   * Obtiene una asocomunal con sus JAC asociadas.
+   * @param id - ID de la asocomunal.
+   * @returns La asocomunal con sus JAC.
+   */
   @Get(':id/jacs')
   @ApiOperation({ summary: 'Obtener una asocomunal con sus JAC asociadas' })
   @ApiParam({ name: 'id', description: 'ID de la asocomunal' })

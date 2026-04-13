@@ -8,6 +8,13 @@ import { ASOCOMUNAL_REPOSITORY } from './accesoDatos/repository/asocomunal-repos
 import { ProducerModule } from './colaDeMensajes/productor/producer.module';
 import { MunicipioModule } from 'src/municipio/municipio.module';
 
+/**
+ * Módulo principal de la aplicación.
+ * 
+ * Configura la conexión a la base de datos PostgreSQL, registra los repositorios,
+ * define los controladores y servicios, e importa módulos de funcionalidades externas
+ * como `MunicipioModule` y `ProducerModule`.
+ */
 @Module({
   imports: [
     MunicipioModule,
@@ -24,4 +31,4 @@ import { MunicipioModule } from 'src/municipio/municipio.module';
   ],
   exports: [ASOCOMUNAL_REPOSITORY, AsocomunalService], // exporta si otro módulo lo necesita
 })
-export class AsocomunalModule {}
+export class AsocomunalModule { }

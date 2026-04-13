@@ -12,6 +12,12 @@ import { ProducerService } from '../colaDeMensajes/productor/producer.service';
 import { MunicipioService } from 'src/municipio/municipio.service';
 import { BadRequestException } from '@nestjs/common/exceptions/bad-request.exception';
 
+/**
+ * Servicio principal (Capa de Fachada/Lógica de Negocio) para gestionar las Asociaciones Comunales.
+ * 
+ * Se encarga de aplicar las reglas de negocio antes de interactuar con el repositorio (Base de Datos)
+ * y de orquestar la comunicación con otros microservicios a través de RabbitMQ (utilizando ProducerService).
+ */
 @Injectable()
 export class AsocomunalService {
   constructor(
@@ -21,6 +27,18 @@ export class AsocomunalService {
     private readonly producerService: ProducerService, // <-- inyectamos
   ) { }
 
+  /**
+   * Crea una nueva Asocomunal en el sistema.
+   * 
+   * Valida que no exista una asocomunal con el mismo nombre en el mismo municipio,
+   * valida la existencia del municipio, guarda el registro en base de datos y
+   * emite un evento asíncrono para que otros microservicios se enteren de la creación.
+   *
+   * @param dto - Objeto con los datos necesarios (nombre, municipioId, etc.) para crear la asocomunal.
+   * @returns El objeto de la asocomunal recién creada, mapeado en su respectivo DTO de respuesta.
+   * @throws {BadRequestException} Si el nombre o el municipioId están vacíos, o si hay un nombre duplicado.
+   * @throws {NotFoundException} Si el municipio proporcionado no existe.
+   */
   async create(dto: CreateAsocomunalDto): Promise<AsocomunalResponseDto> {
     // 1. Validaciones básicas de entrada
     if (!dto.nombre?.trim()) {
@@ -88,6 +106,15 @@ export class AsocomunalService {
     return plainToInstance(AsocomunalResponseDto, response);
   }
 
+  /**
+   * Actualiza la información de una Asocomunal existente.
+   *
+   * @param id - Identificador único de la asocomunal a modificar.
+   * @param dto - Objeto con los nuevos datos a actualizar.
+   * @returns Diferida con la asocomunal actualizada, mapeada al DTO de respuesta.
+   * @throws {NotFoundException} Si no se encuentra la asocomunal o el respectivo municipio a enlazar.
+   * @throws {BadRequestException} Si intenta establecer un nombre vacío o si ya existe otra asocomunal con ese nombre.
+   */
   async update(
     id: number,
     dto: UpdateAsocomunalDto,
@@ -155,6 +182,11 @@ export class AsocomunalService {
     return plainToInstance(AsocomunalResponseDto, updatedEntity);
   }
 
+  /**
+   * Obtiene la lista completa de todas las Asocomunales en el sistema.
+   *
+   * @returns Un arreglo con los datos de las Asocomunales mapeadas a ResponseDTO.
+   */
   async findAll(): Promise<AsocomunalResponseDto[]> {
     const entities: Asocomunal[] = await this.asocomunalRepository.findAll();
 
@@ -162,6 +194,13 @@ export class AsocomunalService {
     return plainToInstance(AsocomunalResponseDto, entities);
   }
 
+  /**
+   * Obtiene una Asocomunal basándose en su ID.
+   *
+   * @param id - Identificador único.
+   * @returns El objeto de la asocomunal encontrada.
+   * @throws {NotFoundException} Si no existe ninguna asocomunal con el id especificado.
+   */
   async findOne(id: number): Promise<AsocomunalResponseDto> {
     const entity = await this.asocomunalRepository.findById(id);
     if (!entity)
@@ -170,6 +209,13 @@ export class AsocomunalService {
     return plainToInstance(AsocomunalResponseDto, entity);
   }
 
+  /**
+   * Inactiva (Borrado lógico) una Asocomunal en el sistema.
+   *
+   * @param id - Identificador de la asocomunal.
+   * @returns La asocomunal editada con su estado pasado a falso.
+   * @throws {NotFoundException} Si la asocomunal no existe o no se pudo proceder a la alteración.
+   */
   async remove(id: number): Promise<AsocomunalResponseDto> {
     const entity = await this.asocomunalRepository.findById(id);
     if (!entity)
@@ -188,6 +234,13 @@ export class AsocomunalService {
     return plainToInstance(AsocomunalResponseDto, updatedEntity);
   }
 
+  /**
+   * Reactiva (Cambia su estado a true) una Asocomunal.
+   *
+   * @param id - Identificador de la asocomunal.
+   * @returns La asocomunal editada con su estado activo.
+   * @throws {NotFoundException} Si no fue encontrada.
+   */
   async activate(id: number): Promise<AsocomunalResponseDto> {
     const entity = await this.asocomunalRepository.findById(id);
     if (!entity)
@@ -210,6 +263,14 @@ export class AsocomunalService {
   }
    */
 
+  /**
+   * Obtiene una Asocomunal junto con la lista completa de Juntas de Acción Comunal (JAC)
+   * que le pertenecen.
+   *
+   * @param id - Identificador de la asocomunal.
+   * @returns La asocomunal incluyendo sus relaciones con `jacs`.
+   * @throws {NotFoundException} Si no se encuentra.
+   */
   async getAsocomunalWithJacs(id: number): Promise<AsocomunalResponseDto> {
     const asocomunal = await this.asocomunalRepository.findOneWithJacs(id);
 

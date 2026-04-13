@@ -13,7 +13,7 @@ export class MunicipioService {
   constructor(
     @InjectRepository(Municipio)
     private readonly municipioRepository: Repository<Municipio>,
-  ) {}
+  ) { }
 
   async create(
     createMunicipioDto: CreateMunicipioDto,

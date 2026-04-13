@@ -3,425 +3,375 @@ import { AsocomunalService } from '../asocomunal/fachadaService/asocomunal.servi
 
 @Injectable()
 export class AsocomunalSeed {
-  constructor(private readonly asocomunalService: AsocomunalService) {}
+  constructor(private readonly asocomunalService: AsocomunalService) { }
 
   async seed() {
     const asocomunales = [
       {
-        nombre: 'ASOCOMUNAL ALMAGUER',
+        nombre: 'Asocomunal Almaguer',
         municipioId: 1,
         estado: true,
-        presidente: 'CARLOS HOYOS RUANO',
+        presidente: 'Carlos Hoyos Ruano',
         telefono: '3208932387',
         correo: 'asociacioncomunalalmaguer@gmail.com',
       },
-
       {
-        nombre: 'ASOCOMUNAL ARGELIA CABECERA',
+        nombre: 'Asocomunal Argelia Cabecera',
         municipioId: 2,
         estado: true,
-        presidente: 'EYDER MUÑOZ ROSERO',
+        presidente: 'Eyder Muñoz Rosero',
         telefono: '3117115155',
         correo: 'asocomunalargelia74@gmail.com',
       },
-
       {
-        nombre: 'ASOCOMUNAL CGTOS. EL PLATEADO LA EMBOSCADA Y S.',
+        nombre: 'Asocomunal Cgtos. El Plateado la Emboscada y S.',
         municipioId: 2,
         estado: true,
-        presidente: 'ELIVER ARBOLEDA BERMUDEZ',
+        presidente: 'Eliver Arboleda Bermudez',
         telefono: '3187421622',
-        correo:
-          'promotoriargeliacauca@gmail.com;promotoriadejuntas@argelia-cauca.gov.co',
+        correo: 'promotoriargeliacauca@gmail.com;promotoriadejuntas@argelia-cauca.gov.co',
       },
-
       {
-        nombre: 'ASOCOMUNAL BALBOA',
+        nombre: 'Asocomunal Balboa',
         municipioId: 3,
         estado: true,
-        presidente: 'ANDRES FELIPE SUAREZ DORADO',
+        presidente: 'Andres Felipe Suarez Dorado',
         telefono: '3106153184',
         correo: 'asocomunalbalboa@gmail.com',
       },
-
       {
-        nombre: 'ASOCOMUNAL BOLIVAR',
+        nombre: 'Asocomunal Bolivar',
         municipioId: 4,
         estado: true,
-        presidente: 'FREDY YOBANY ZEMANATE',
+        presidente: 'Fredy Yobany Zemanate',
         telefono: '3122871156',
         correo: 'asocomunalbolivarc@hotmail.com',
       },
-
       {
-        nombre: 'ASOCOMUNAL BUENOS AIRES',
+        nombre: 'Asocomunal Buenos Aires',
         municipioId: 5,
         estado: true,
-        presidente: 'MANUEL CORTES SALINAS',
+        presidente: 'Manuel Cortes Salinas',
         telefono: '3146436320',
         correo: 'asocomunalbuenosaires2225@gmail.com',
       },
-
       {
-        nombre: 'ASOCOMUNAL ALTO NAYA',
+        nombre: 'Asocomunal Alto Naya',
         municipioId: 5,
         estado: true,
-        presidente: 'MANUEL TENORIO YONDA',
+        presidente: 'Manuel Tenorio Yonda',
         telefono: '3027830505;3153933757',
-        correo:
-          'desarrollocomunitario@buenosaires-cauca.gov.co;greysigomez1986@gmail.com',
+        correo: 'desarrollocomunitario@buenosaires-cauca.gov.co;greysigomez1986@gmail.com',
       },
-
       {
-        nombre: 'ASOCOMUNAL CAJIBIO',
+        nombre: 'Asocomunal Cajibio',
         municipioId: 6,
         estado: true,
-        presidente: 'MARGARETT GARCIA GUARDO',
+        presidente: 'Margarett Garcia Guardo',
         telefono: '3137486215',
         correo: 'asocomunalcajibio@gmail.com',
       },
-
       {
-        nombre: 'ASOCOMUNAL CALDONO',
+        nombre: 'Asocomunal Caldono',
         municipioId: 7,
         estado: true,
-        presidente: 'SILVIO BOMBA CAMPO',
+        presidente: 'Silvio Bomba Campo',
         telefono: '3104337775',
         correo: 'asocomunalcaldonocauca@gmail.com',
       },
-
       {
-        nombre: 'ASOCOMUNAL CALOTO',
+        nombre: 'Asocomunal Caloto',
         municipioId: 8,
         estado: true,
-        presidente: 'OSWALDO VELASCO DAZA',
+        presidente: 'Oswaldo Velasco Daza',
         telefono: '3216455133',
         correo: 'asoc.caloto@hotmail.com',
       },
-
       {
-        nombre: 'ASOCOMUNAL CORINTO',
+        nombre: 'Asocomunal Corinto',
         municipioId: 9,
         estado: true,
-        presidente: 'VILMA LORENA MOTTA',
+        presidente: 'Vilma Lorena Motta',
         telefono: '3148856543',
         correo: 'jacasocomunalcorinto@gmail.com',
       },
-
       {
-        nombre: 'ASOCOMUNAL EL TAMBO',
+        nombre: 'Asocomunal El Tambo',
         municipioId: 10,
         estado: true,
-        presidente: 'JESUS ANTONIO CAICEDO',
+        presidente: 'Jesus Antonio Caicedo',
         telefono: '3126004342',
         correo: 'asocomunaleltambocauca@gmail.com',
       },
-
       {
-        nombre: 'ASOCOMUNAL FLORENCIA',
+        nombre: 'Asocomunal Florencia',
         municipioId: 11,
         estado: false,
-        presidente: 'NO ELIGIO',
+        presidente: 'No Eligio',
         telefono: null,
         correo: null,
       },
-
       {
-        nombre: 'ASOCOMUNAL GUACHENE',
+        nombre: 'Asocomunal Guachene',
         municipioId: 12,
         estado: true,
-        presidente: 'OSCAR CANTOÑI MINA',
+        presidente: 'Oscar Cantoñi Mina',
         telefono: '3207092039',
         correo: 'asocomunalg@gmail.com',
       },
-
       {
-        nombre: 'ASOCOMUNAL GUAPI',
+        nombre: 'Asocomunal Guapi',
         municipioId: 13,
         estado: true,
-        presidente: 'DANIEL SOLÍS SINISTERRA',
+        presidente: 'Daniel Solís Sinisterra',
         telefono: '3136088967',
         correo: 'asocomunalguapi@gmail.com',
       },
-
       {
-        nombre: 'ASOCOMUNAL INZA',
+        nombre: 'Asocomunal Inza',
         municipioId: 14,
         estado: true,
-        presidente: 'ASTRID SANCHEZ CAMPOS',
+        presidente: 'Astrid Sanchez Campos',
         telefono: '3133150133',
         correo: 'asocomunalinzacauca@gmail.com',
       },
-
       {
-        nombre: 'ASOCOMUNAL JAMBALO',
+        nombre: 'Asocomunal Jambalo',
         municipioId: 15,
         estado: true,
-        presidente: 'BRANDON VELASCO VALENCIA',
+        presidente: 'Brandon Velasco Valencia',
         telefono: '3206838330',
         correo: 'asocomunal.jambalo@gmail.com',
       },
-
       {
-        nombre: 'ASOCOMUNAL LA SIERRA',
+        nombre: 'Asocomunal La Sierra',
         municipioId: 16,
         estado: true,
-        presidente: 'HERIBERTO LÓPEZ ALBÁN',
+        presidente: 'Heriberto López Albán',
         telefono: '3113538554',
         correo: 'asocomunallasierra@gmail.com',
       },
-
       {
-        nombre: 'ASOCOMUNAL LA VEGA',
+        nombre: 'Asocomunal La Vega',
         municipioId: 17,
         estado: true,
-        presidente: 'MANCER GERARDO MUÑOZ',
+        presidente: 'Mancer Gerardo Muñoz',
         telefono: '3175584072',
         correo: 'asocomunallavega@gmail.com',
       },
-
       {
-        nombre: 'ASOCOMUNAL LÓPEZ DE MICAY',
+        nombre: 'Asocomunal López de Micay',
         municipioId: 18,
         estado: false,
-        presidente: 'NO ELIGIO',
+        presidente: 'No Eligio',
         telefono: null,
         correo: null,
       },
-
       {
-        nombre: 'ASOCOMUNAL MERCADERES',
+        nombre: 'Asocomunal Mercaderes',
         municipioId: 19,
         estado: true,
-        presidente: 'ENRIQUE ALDIVAR ANGULO VELASCO',
+        presidente: 'Enrique Aldivar Angulo Velasco',
         telefono: '3207402971',
         correo: 'asocomunal.mercaderes2022@gmail.com',
       },
-
       {
-        nombre: 'ASOCOMUNAL MIRANDA',
+        nombre: 'Asocomunal Miranda',
         municipioId: 20,
         estado: true,
-        presidente: 'MARTHA CECILIA VALENCIA CABEZAS',
+        presidente: 'Martha Cecilia Valencia Cabezas',
         telefono: '3117965806',
         correo: 'asocomunaldemirada@gmail.com',
       },
-
       {
-        nombre: 'ASOCOMUNAL MORALES',
+        nombre: 'Asocomunal Morales',
         municipioId: 21,
         estado: true,
-        presidente: 'LUIS EDUARDO VALENCIA VERGARA',
+        presidente: 'Luis Eduardo Valencia Vergara',
         telefono: '3103734753',
         correo: 'desarrollocomunitario@morales-cauca.gov.co',
       },
-
       {
-        nombre: 'ASOCOMUNAL PADILLA',
+        nombre: 'Asocomunal Padilla',
         municipioId: 22,
         estado: false,
         presidente: null,
         telefono: null,
         correo: null,
       },
-
       {
-        nombre: 'ASOCOMUNAL PAEZ',
+        nombre: 'Asocomunal Paez',
         municipioId: 23,
         estado: true,
-        presidente: 'CELESTINO ORTIZ MERA',
+        presidente: 'Celestino Ortiz Mera',
         telefono: '3113789142',
         correo: 'asocomunalpaezcauca@hotmail.com',
       },
-
       {
-        nombre: 'ASOCOMUNAL PATIA',
+        nombre: 'Asocomunal Patia',
         municipioId: 24,
         estado: true,
-        presidente: 'MARIA DEL PILAR LOPEZ HERRERA',
+        presidente: 'Maria del Pilar Lopez Herrera',
         telefono: '3127888725',
-        correo:
-          'secretariaasojuntaspatia@gmail.com;presidenciaasojuntas@gmail.com',
+        correo: 'secretariaasojuntaspatia@gmail.com;presidenciaasojuntas@gmail.com',
       },
-
       {
-        nombre: 'ASOCOMUNAL PIAMONTE',
+        nombre: 'Asocomunal Piamonte',
         municipioId: 25,
         estado: true,
-        presidente: 'GILDARDO PASTRANA',
+        presidente: 'Gildardo Pastrana',
         telefono: '3115324001',
         correo: 'asocomunalpiamonte@gmail.com',
       },
-
       {
-        nombre: 'ASOCOMUNAL PIENDAMO',
+        nombre: 'Asocomunal Piendamo',
         municipioId: 26,
         estado: true,
-        presidente: 'JOSE AYMER MOSQUERA RAMIREZ',
+        presidente: 'Jose Aymer Mosquera Ramirez',
         telefono: '3113293768',
         correo: 'piendamoasocomunal@gmail.com',
       },
-
       {
-        nombre: 'ASOCOMUNAL POPAYAN',
+        nombre: 'Asocomunal Popayan',
         municipioId: 27,
         estado: true,
-        presidente: 'JHONATAN CONSTAIN',
+        presidente: 'Jhonatan Constain',
         telefono: '3122639348',
         correo: 'asocomunalpopayancauca@gmail.com',
       },
-
       {
-        nombre: 'ASOCOMUNAL PUERTO TEJADA',
+        nombre: 'Asocomunal Puerto Tejada',
         municipioId: 28,
         estado: true,
-        presidente: 'CARLOS ARTURO LASSO VASQUEZ',
+        presidente: 'Carlos Arturo Lasso Vasquez',
         telefono: '3184212320',
         correo: 'ptotejadaasojuntas@gmail.com',
       },
-
       {
-        nombre: 'ASOCOMUNAL PURACE',
+        nombre: 'Asocomunal Purace',
         municipioId: 29,
         estado: true,
-        presidente: 'OSCAR JOEL CUCHUMBE CHANTRE',
+        presidente: 'Oscar Joel Cuchumbe Chantre',
         telefono: '3216410316',
         correo: 'juntaspurace@gmail.com',
       },
-
       {
-        nombre: 'ASOCOMUNAL ROSAS',
+        nombre: 'Asocomunal Rosas',
         municipioId: 30,
         estado: true,
-        presidente: 'EDUARDO NARVAEZ',
+        presidente: 'Eduardo Narvaez',
         telefono: '3216410316',
-        correo:
-          'asocomunalrosas@gmail.com;asocomunalrosascauca2023@hotmail.com',
+        correo: 'asocomunalrosas@gmail.com;asocomunalrosascauca2023@hotmail.com',
       },
-
       {
-        nombre: 'ASOCOMUNAL SAN SEBASTIAN',
+        nombre: 'Asocomunal San Sebastian',
         municipioId: 31,
         estado: true,
-        presidente: 'FELIO ROLDAN TIMANA ANACONA',
+        presidente: 'Felio Roldan Timana Anacona',
         telefono: '3206995085',
-        correo:
-          'contador1@caminosdeoportunidades.com.co;jesusarbeym2@hotmail.com',
+        correo: 'contador1@caminosdeoportunidades.com.co;jesusarbeym2@hotmail.com',
       },
-
       {
-        nombre: 'ASOCOMUNAL SANTA ROSA CABECERA',
+        nombre: 'Asocomunal Santa Rosa Cabecera',
         municipioId: 32,
         estado: true,
-        presidente: 'NELSON JOAQUI',
+        presidente: 'Nelson Joaqui',
         telefono: '3148570441',
         correo: 'asojuntassantarosacabecera25@gmail.com',
       },
-
       {
-        nombre: 'ASOCOMUNAL SANTA ROSA MEDIA BOTA',
+        nombre: 'Asocomunal Santa Rosa Media Bota',
         municipioId: 32,
         estado: true,
-        presidente: 'EDELMO CALVAHCE',
+        presidente: 'Edelmo Calvahce',
         telefono: '3212476240',
         correo: 'asojuntassantarosacabecera25@gmail.com',
       },
-
       {
-        nombre: 'ASOCOMUNAL SANTA ROSA VILLALOBOS',
+        nombre: 'Asocomunal Santa Rosa Villalobos',
         municipioId: 32,
         estado: true,
-        presidente: 'ALEJANDRO PIAMBA JIMENEZ',
+        presidente: 'Alejandro Piamba Jimenez',
         telefono: '3213418027',
         correo: 'asojuntasvillaloboscauca@gmail.com',
       },
-
       {
-        nombre: 'ASOCOMUNAL SANTANDER DE QUILICHAO',
+        nombre: 'Asocomunal Santander de Quilichao',
         municipioId: 33,
         estado: true,
-        presidente: 'JESSICA LASSO CHOCO',
+        presidente: 'Jessica Lasso Choco',
         telefono: '3113643059',
         correo: 'asocomunalquilichao@gmail.com',
       },
-
       {
-        nombre: 'ASOCOMUNAL SILVIA',
+        nombre: 'Asocomunal Silvia',
         municipioId: 34,
         estado: true,
-        presidente: 'WILSON FERNEY CHILO PITO',
+        presidente: 'Wilson Ferney Chilo Pito',
         telefono: '3216413372',
         correo: 'asocomunalsilviacauca@gmail.com',
       },
-
       {
-        nombre: 'ASOCOMUNAL SOTARA',
+        nombre: 'Asocomunal Sotara',
         municipioId: 35,
         estado: true,
-        presidente: 'VILMA YAMILETH ASTAIZA RIVERA',
+        presidente: 'Vilma Yamileth Astaiza Rivera',
         telefono: '3184512686',
         correo: 'sotaraasociaciondejuntas@gmail.com',
       },
-
       {
-        nombre: 'ASOCOMUNAL SUAREZ',
+        nombre: 'Asocomunal Suarez',
         municipioId: 36,
         estado: true,
-        presidente: 'GERSAIN SOSCUE ZAMBRANO',
+        presidente: 'Gersain Soscue Zambrano',
         telefono: '3174914030',
         correo: 'asojuntassuarez@gmail.com',
       },
-
       {
-        nombre: 'ASOCOMUNAL SUCRE',
+        nombre: 'Asocomunal Sucre',
         municipioId: 37,
         estado: true,
-        presidente: 'LORENA CARVAJAL MARTINEZ',
+        presidente: 'Lorena Carvajal Martinez',
         telefono: '3108218229',
         correo: 'asocomunalsucre2023@gmail.com',
       },
-
       {
-        nombre: 'ASOCOMUNAL TIMBIO',
+        nombre: 'Asocomunal Timbio',
         municipioId: 38,
         estado: true,
-        presidente: 'ALFONSO TRUQUE DIAZ',
+        presidente: 'Alfonso Truque Diaz',
         telefono: '3127029949',
         correo: 'asocomunal.timbiocauca@gmail.com',
       },
-
       {
-        nombre: 'ASOCOMUNAL TIMBIQUI',
+        nombre: 'Asocomunal Timbiqui',
         municipioId: 39,
         estado: false,
-        presidente: 'NO ELIGIO',
+        presidente: 'No Eligio',
         telefono: null,
         correo: null,
       },
-
       {
-        nombre: 'ASOCOMUNAL TORIBIO',
+        nombre: 'Asocomunal Toribio',
         municipioId: 40,
         estado: true,
-        presidente: 'LIRIO VELEZ NOSCUE MIJERA',
+        presidente: 'Lirio Velez Noscue Mijera',
         telefono: '3207441313',
         correo: 'asociacionjactoribio@gmail.com',
       },
-
       {
-        nombre: 'ASOCOMUNAL TOTORO',
+        nombre: 'Asocomunal Totoro',
         municipioId: 41,
         estado: true,
-        presidente: 'MARLENY ESTELA IBARRA M.',
+        presidente: 'Marleny Estela Ibarra M.',
         telefono: '3114831001',
         correo: 'asocomunaltotoro2026@outlook.com',
       },
-
       {
-        nombre: 'ASOCOMUNAL VILLA RICA',
+        nombre: 'Asocomunal Villa Rica',
         municipioId: 42,
         estado: true,
-        presidente: 'JHOAN A. MONTES USME',
+        presidente: 'Jhoan A. Montes Usme',
         telefono: '3216134066',
         correo: 'asocomunalvillarica@hotmail.com',
       },

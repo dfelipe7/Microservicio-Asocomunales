@@ -3,15 +3,24 @@ import { AppModule } from './app.module';
 import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+
+/**
+ * Punto de entrada de la aplicación.
+ * 
+ * Configura el microservicio, habilita CORS, genera documentación Swagger y 
+ * arranca la aplicación.
+ */
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+
+
 
   // Conectar microservicio consumidor a la cola de MS2
   app.connectMicroservice<MicroserviceOptions>({
     transport: Transport.RMQ,
     options: {
       urls: ['amqp://localhost:5672'],
-      queue: 'colaJac', // 👈 la cola de MS2
+      queue: 'colaJac', //la cola de MS2
       queueOptions: { durable: true },
     },
   });
@@ -23,6 +32,12 @@ async function bootstrap() {
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     allowedHeaders: 'Content-Type,Authorization',
   });
+
+  /**
+   * Configuración de la documentación Swagger.
+   * 
+   * @returns Documentación de la API.
+   */
   const config = new DocumentBuilder()
 
     .setTitle('Documentación de la API de Asocomunales')
@@ -35,8 +50,14 @@ async function bootstrap() {
   const documentFactory = () => SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('documentacion', app, documentFactory);
 
+  /**
+   * Inicia todos los microservicios.
+   */
   await app.startAllMicroservices();
 
+  /**
+   * Inicia la aplicación.
+   */
   await app.listen(process.env.PORT ?? 3000);
   console.log('MS1 corriendo y escuchando colaJac');
 }
