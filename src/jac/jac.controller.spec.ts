@@ -5,10 +5,19 @@ import { JacService } from './jac.service';
 describe('JacController', () => {
   let controller: JacController;
 
+  const mockJacService = {
+    handleEvent: jest.fn(),
+  };
+
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [JacController],
-      providers: [JacService],
+      providers: [
+        {
+          provide: JacService,
+          useValue: mockJacService,
+        },
+      ],
     }).compile();
 
     controller = module.get<JacController>(JacController);

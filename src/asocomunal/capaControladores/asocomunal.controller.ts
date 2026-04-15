@@ -113,7 +113,7 @@ export class AsocomunalController {
    * @returns La asocomunal eliminada.
    */
   @Delete(':id')
-  @ApiOperation({ summary: 'Eliminar una asocomunal' })
+  @ApiOperation({ summary: 'Eliminar una asocomunal(De manera logica)' })
   @ApiParam({ name: 'id', description: 'ID de la asocomunal' })
   @ApiResponse({
     status: 200,

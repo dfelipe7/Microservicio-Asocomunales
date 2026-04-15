@@ -5,10 +5,23 @@ import { MunicipioService } from './municipio.service';
 describe('MunicipioController', () => {
   let controller: MunicipioController;
 
+  const mockMunicipioService = {
+    findAll: jest.fn(),
+    findOne: jest.fn(),
+    create: jest.fn(),
+    update: jest.fn(),
+    remove: jest.fn(),
+  };
+
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [MunicipioController],
-      providers: [MunicipioService],
+      providers: [
+        {
+          provide: MunicipioService,
+          useValue: mockMunicipioService,
+        },
+      ],
     }).compile();
 
     controller = module.get<MunicipioController>(MunicipioController);
