@@ -6,25 +6,28 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { MunicipioModule } from './municipio/municipio.module';
 import { SeedModule } from './seed/seed.module';
 import { JacModule } from './jac/jac.module';
+import { AuthModule } from './auth/auth.module';
 
 /**
  * Módulo principal de la aplicación.
- * 
+ *
  * @returns Módulo principal de la aplicación.
  */
 @Module({
-
   imports: [
-    TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: 'localhost',
-      port: 5432,
-      username: 'postgres',
-      password: 'root',
-      database: 'DBAsocomunales',
-      autoLoadEntities: true,
-      synchronize: true,
+    TypeOrmModule.forRootAsync({
+      useFactory: () => ({
+        type: 'postgres',
+        host: process.env.DB_HOST,
+        port: parseInt(process.env.DB_PORT ?? '5432', 10),
+        username: process.env.DB_USERNAME,
+        password: process.env.DB_PASSWORD,
+        database: process.env.DB_DATABASE,
+        autoLoadEntities: true,
+        synchronize: true,
+      }),
     }),
+    AuthModule,
     AsocomunalModule,
     MunicipioModule,
     SeedModule,
