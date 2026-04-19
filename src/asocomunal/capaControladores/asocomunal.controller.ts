@@ -12,6 +12,8 @@ import { AsocomunalService } from '../fachadaService/asocomunal.service';
 import { CreateAsocomunalDto } from '../fachadaService/dto/request/create-asocomunal.dto';
 import { UpdateAsocomunalDto } from '../fachadaService/dto/request/update-asocomunal.dto';
 import { AsocomunalResponseDto } from '../fachadaService/dto/response/asocomunal-response.dto';
+import { AdminOnly } from '../../auth/decorators/admin-only.decorator';
+import { Public } from '../../auth/decorators/public.decorator';
 
 import {
   ApiTags,
@@ -23,10 +25,14 @@ import {
 
 /**
  * Controlador para la gestión de asocomunales.
- * 
+ *
+ * Todos los endpoints requieren autenticación con rol 'admin' mediante
+ * una Cookie HTTP Only que contenga un JWT válido.
+ *
  * Maneja las operaciones CRUD y otras funcionalidades relacionadas con las asocomunales,
  * interactuando con el servicio `AsocomunalService`.
  */
+@AdminOnly()
 @ApiTags('Asocomunal')
 @Controller('asocomunal')
 export class AsocomunalController {
@@ -55,6 +61,7 @@ export class AsocomunalController {
    * Obtiene todas las asocomunales.
    * @returns Lista de asocomunales.
    */
+  @Public()
   @Get()
   @ApiOperation({ summary: 'Obtener todas las asocomunales' })
   @ApiResponse({
@@ -71,6 +78,7 @@ export class AsocomunalController {
    * @param id - ID de la asocomunal.
    * @returns La asocomunal encontrada.
    */
+  @Public()
   @Get(':id')
   @ApiOperation({ summary: 'Obtener una asocomunal por ID' })
   @ApiParam({ name: 'id', description: 'ID de la asocomunal' })

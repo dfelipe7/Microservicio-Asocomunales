@@ -10,17 +10,19 @@ import { ProducerService } from './producer.service';
  */
 @Module({
   imports: [
-    ClientsModule.register([
+    ClientsModule.registerAsync([
       {
         name: 'ASOCOMUNAL_PRODUCER',
-        transport: Transport.RMQ,
-        options: {
-          urls: ['amqp://localhost:5672'],
-          queue: 'colaAsocomunales',
-          queueOptions: {
-            durable: true,
+        useFactory: () => ({
+          transport: Transport.RMQ,
+          options: {
+            urls: [process.env.RABBITMQ_URL ?? 'amqp://localhost:5672'],
+            queue: 'colaAsocomunales',
+            queueOptions: {
+              durable: true,
+            },
           },
-        },
+        }),
       },
     ]),
   ],
