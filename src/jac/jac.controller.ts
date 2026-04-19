@@ -1,6 +1,8 @@
 import { Controller } from '@nestjs/common';
 import { JacService } from './jac.service';
+import { AdminOnly } from '../auth/decorators/admin-only.decorator';
 
+@AdminOnly()
 @Controller('jac')
 export class JacController {
   constructor(private readonly jacService: JacService) {}

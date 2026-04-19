@@ -13,8 +13,11 @@ import { MunicipioService } from './municipio.service';
 import { CreateMunicipioDto } from './dto/request/create-municipio.dto';
 import { UpdateMunicipioDto } from './dto/request/update-municipio.dto';
 import { MunicipioResponseDto } from './dto/response/municipio-response.dto';
+import { AdminOnly } from '../auth/decorators/admin-only.decorator';
+import { Public } from '../auth/decorators/public.decorator';
 import { ApiTags, ApiOperation, ApiResponse, ApiParam, ApiBody } from '@nestjs/swagger';
 
+@AdminOnly()
 @ApiTags('Municipios')
 @Controller('municipio')
 export class MunicipioController {
@@ -32,6 +35,7 @@ export class MunicipioController {
     return this.municipioService.create(createMunicipioDto);
   }
 
+  @Public()
   @Get()
   @ApiOperation({ summary: 'Obtener todos los municipios' })
   @ApiResponse({
