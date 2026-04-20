@@ -7,6 +7,7 @@ import { AsocomunalRepositoryImpl } from './accesoDatos/repository/asocomunal-re
 import { ASOCOMUNAL_REPOSITORY } from './accesoDatos/repository/asocomunal-repository.constants';
 import { ProducerModule } from './colaDeMensajes/productor/producer.module';
 import { MunicipioModule } from 'src/municipio/municipio.module';
+import { AsocomunalConsumerController } from './colaDeMensajes/consumidor/asocomunal-consumer.controller';
 
 /**
  * Módulo principal de la aplicación.
@@ -21,7 +22,7 @@ import { MunicipioModule } from 'src/municipio/municipio.module';
     ProducerModule,
     TypeOrmModule.forFeature([Asocomunal]),
   ],
-  controllers: [AsocomunalController],
+  controllers: [AsocomunalController, AsocomunalConsumerController],
   providers: [
     AsocomunalService,
     {

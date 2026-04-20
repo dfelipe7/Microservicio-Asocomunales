@@ -14,6 +14,7 @@ import { UpdateAsocomunalDto } from '../fachadaService/dto/request/update-asocom
 import { AsocomunalResponseDto } from '../fachadaService/dto/response/asocomunal-response.dto';
 import { AdminOnly } from '../../auth/decorators/admin-only.decorator';
 import { Public } from '../../auth/decorators/public.decorator';
+import { AllowRoles } from '../../auth/decorators/allow-roles.decorator';
 
 import {
   ApiTags,
@@ -43,6 +44,7 @@ export class AsocomunalController {
    * @param createAsocomunalDto - Datos de la nueva asocomunal.
    * @returns La asocomunal creada.
    */
+  @AllowRoles('admin', 'operador')
   @Post()
   @ApiOperation({ summary: 'Crear una nueva Asocomunal' })
   @ApiBody({ type: CreateAsocomunalDto })
@@ -99,6 +101,7 @@ export class AsocomunalController {
    * @param updateAsocomunalDto - Datos de la asocomunal a actualizar.
    * @returns La asocomunal actualizada.
    */
+  @AllowRoles('admin', 'operador')
   @Patch(':id')
   @ApiOperation({ summary: 'Actualizar una asocomunal' })
   @ApiParam({ name: 'id', description: 'ID de la asocomunal' })
@@ -120,6 +123,7 @@ export class AsocomunalController {
    * @param id - ID de la asocomunal.
    * @returns La asocomunal eliminada.
    */
+  @AllowRoles('admin', 'operador')
   @Delete(':id')
   @ApiOperation({ summary: 'Eliminar una asocomunal(De manera logica)' })
   @ApiParam({ name: 'id', description: 'ID de la asocomunal' })
@@ -134,9 +138,11 @@ export class AsocomunalController {
 
   /**
    * Activa una asocomunal.
+   * Accesible por los roles 'admin' y 'operador'.
    * @param id - ID de la asocomunal.
    * @returns La asocomunal activada.
    */
+  @AllowRoles('admin', 'operador')
   @Patch(':id/activate')
   @ApiOperation({ summary: 'Activar una asocomunal' })
   @ApiParam({ name: 'id', description: 'ID de la asocomunal' })
@@ -154,6 +160,8 @@ export class AsocomunalController {
    * @param id - ID de la asocomunal.
    * @returns La asocomunal con sus JAC.
    */
+
+  @Public()
   @Get(':id/jacs')
   @ApiOperation({ summary: 'Obtener una asocomunal con sus JAC asociadas' })
   @ApiParam({ name: 'id', description: 'ID de la asocomunal' })

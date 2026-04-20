@@ -29,6 +29,17 @@ async function bootstrap() {
     },
   });
 
+
+  // Conectar a la cola de aprobaciones provenientes del MS Auditoría
+  app.connectMicroservice<MicroserviceOptions>({
+    transport: Transport.RMQ,
+    options: {
+      urls: [process.env.RABBITMQ_URL ?? 'amqp://localhost:5672'],
+      queue: 'colaAprobacionesJAC',
+      queueOptions: { durable: false },
+    },
+  });
+
   // Habilitar CORS para aceptar solicitudes del frontend
   app.enableCors({
     origin: process.env.CORS_ORIGIN ?? 'http://localhost:5173',
