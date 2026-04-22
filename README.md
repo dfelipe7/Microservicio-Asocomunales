@@ -1,0 +1,116 @@
+<p align="center">
+  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
+</p>
+
+# 🏢 Microservicio Asocomunales
+
+Este microservicio se encarga de la gestión y administración de las Asociaciones Comunales (Asocomunales), su relacion con Municipios y Juntas de Acción Comunal (JAC) en la plataforma. Está construido con una arquitectura robusta centrada en eventos para comunicarse con el ecosistema de la aplicación principal.
+
+## 🛠️ Tecnologías Principales
+
+- **Framework:** [NestJS](https://nestjs.com/) v11
+- **Base de Datos:** PostgreSQL
+- **ORM:** [TypeORM](https://typeorm.io/)
+- **Mensajería (Eventos):** RabbitMQ
+- **Documentación API:** Swagger (OpenAPI)
+- **Pruebas:** Jest
+
+---
+
+## 🚀 Pre-requisitos e Instalación
+
+Para levantar este microservicio en un entorno local, asegúrate de tener instalados los siguientes programas:
+- Node.js (v20 o superior recomendado)
+- PostgreSQL corriendo localmente
+- Un broker de RabbitMQ corriendo localmente
+
+### Clonar e Instalar dependencias
+
+```bash
+$ git clone <url_del_repositorio>
+$ cd microservicio-asocomunales
+$ npm install
+```
+
+### Configurar Variables de Entorno
+
+Debes crear un archivo `.env` en la raíz del proyecto (basado en un `.env.example` si existe) con las credenciales de tu base de datos y la cadena de conexión de tu RabbitMQ.
+
+Ejemplo:
+```env
+DB_HOST=localhost
+DB_PORT=5432
+DB_USER=postgres
+DB_PASSWORD=root
+DB_NAME=asocomunales_db
+
+RABBITMQ_URL=amqp://localhost:5672
+```
+
+---
+
+## 🏃 Ejecución del Microservicio
+
+```bash
+# Modo desarrollo (Escucha de cambios en caliente)
+$ npm run start:dev
+
+# Modo de producción
+$ npm run build
+$ npm run start:prod
+```
+
+---
+
+## 📚 Documentación de la API (Swagger)
+
+A diferencia de muchos proyectos, este proyecto contiene documentación viva generada de manera automática con Swagger. **No dependemos de este archivo de texto para saber qué rutas invocar**.
+
+Una vez que el servidor esté corriendo, navega en tu explorador hacia la siguiente dirección para visualizar todas las rutas, DTOs y esquemas de respuesta listos para ser probados:
+
+> 👉 **[http://localhost:3000/documentacion](http://localhost:3000/documentacion)** 
+*(El puerto `3000` puede cambiar según la configuración de tu `main.ts`)*
+
+Allí encontrarás la documentación interactiva de los siguientes módulos:
+- **Asocomunal:** (`/asocomunal` - Creación, Edición y Activación)
+- **Municipio:** (`/municipio` - Relacion del municipio con la asocomunal)
+- **JAC:** Relacion de una asocomunal con Juntas de Acción Comunal.
+
+---
+
+## 🧪 Pruebas Automatizadas
+
+El código tiene una cobertura de pruebas unitarias implementada (Especialmente los Servicios y Repositorios importantes) que permiten hacer validaciones seguras antes de subir a producción.
+
+Para correr las pruebas localmente:
+
+```bash
+# Correr todas las pruebas (Pruebas unitarias)
+$ npm run test
+
+# Correr pruebas y ver la tabla de cobertura (Test Coverage)
+$ npm run test:cov
+
+# Continuar programando con el observador de pruebas encendido
+$ npm run test:watch
+```
+
+---
+
+## 🏗️ Estructura del Código
+
+Este proyecto utiliza un patrón de capas para aislar la responsabilidad:
+- **Capas de Controladores:** Encargada únicamente de atender HTTP y delegar.
+- **Servicios de Fachada / Lógica:** Contiene validaciones estrictas y reglas de negocio.
+- **Acceso a Datos / Repositorios:** Interacciones con PostgreSQL via TypeORM.
+- **Cola de Mensajes:** Los servicios invocan al `ProducerService` para emitir eventos a RabbitMQ cada vez que haya creaciones o actualizaciones, manteniendo la sincronización entre microservicios.
+
+---
+
+## 🧠 Arquitectura del Dominio y Sincronización
+
+A nivel de modelo de negocio, es crucial entender el propósito de los módulos en este microservicio:
+
+- **Módulo Core (Asocomunales):** Es el corazón absoluto de este sistema. Toda la lógica transaccional, de creación, edición y activación está centrada en la administración de *Asocomunales*.
+- **Módulos Auxiliares (Municipio y JAC):** No son el núcleo del sistema. Su única y exclusiva misión dentro de este microservicio es permitir la relación de datos (Foreign Keys) para que las Asocomunales estén completas.
+- **Sincronización mediante "Tablas Espejo" (JAC):** Dado que este microservicio no es el dueño absoluto de las Juntas de Acción Comunal (ese corresponde a otro microservicio), la tabla de JAC aquí funciona como una **tabla espejo**. Este microservicio escucha de manera activa una cola de mensajes (Consumer en RabbitMQ) para actualizar silenciosamente su base de datos local cada vez que otro microservicio anuncie un cambio, logrando así saber siempre qué JACs están conectadas a nuestras Asocomunales sin robarle la responsabilidad al microservicio dueño.
