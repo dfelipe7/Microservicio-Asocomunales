@@ -5,7 +5,6 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import cookieParser from 'cookie-parser';
 
 /**
  * Punto de entrada de la aplicación.
@@ -16,8 +15,6 @@ import cookieParser from 'cookie-parser';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  // Habilitar lectura de cookies (necesario para el guard JWT)
-  app.use(cookieParser());
 
   // Conectar microservicio consumidor a la cola de MS2
   app.connectMicroservice<MicroserviceOptions>({
