@@ -36,6 +36,9 @@ export class Asocomunal {
   @Column({ type: 'varchar', nullable: true })
   correo!: string | null;
 
+  @Column({ type: 'varchar', nullable: true })
+  cedula!: string | null;
+
   /**
    * Relación con el municipio.
    * @ManyToOne indica que una asocomunal pertenece a un municipio.

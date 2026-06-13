@@ -43,4 +43,10 @@ export class CreateAsocomunalDto {
     description: 'Correo electrónico',
   })
   correo?: string | null;
+
+  @ApiPropertyOptional({
+    example: '12345678',
+    description: 'Cédula del presidente',
+  })
+  cedula?: string | null;
 }

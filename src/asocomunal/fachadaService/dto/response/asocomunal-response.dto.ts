@@ -35,6 +35,10 @@ export class AsocomunalResponseDto {
   @ApiProperty({ example: 'asocomunal@gmail.com', required: false })
   correo?: string;
 
+  @Expose()
+  @ApiProperty({ example: '12345678', required: false })
+  cedula?: string;
+
   /**
    * Relación con el municipio.
    * 

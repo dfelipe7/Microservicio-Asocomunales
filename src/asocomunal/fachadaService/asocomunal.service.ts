@@ -78,6 +78,7 @@ export class AsocomunalService {
     entity.presidente = dto.presidente || null;
     entity.telefono = dto.telefono || null;
     entity.correo = dto.correo || null;
+    entity.cedula = dto.cedula || null;
 
     //  Mapeo seguro: Convertimos el DTO a la forma que espera la Entidad
     // Usamos 'as Municipio' para que TS acepte que solo pasamos el ID
